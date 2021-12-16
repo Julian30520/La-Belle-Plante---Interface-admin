@@ -2,6 +2,13 @@
     <app-filter-side-bar [listCategories]="listCategoriesFilter"></app-filter-side-bar>
 
     <div class="custom-main container p-3">
+        <app-icon [iconName]="'heart'"
+                [iconSize]="2"></app-icon>
+        <app-icon [iconName]="'alarm'"
+                [iconColor]="'red'"></app-icon>
+        <app-icon [iconName]="'star'"
+                [iconSize]="3"
+                [iconColor]="'orange'"></app-icon>
         <input class="form-control" 
             type="text"
             placeholder="Recherche ta belle plante"
