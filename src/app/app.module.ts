@@ -8,6 +8,7 @@ import { PageAccueilComponent } from './pages/page-accueil/page-accueil.componen
 import { PageDetailsComponent } from './pages/page-details/page-details.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FilterSideBarComponent } from './components/filter-side-bar/filter-side-bar.component';
+import { CardPlanteComponent } from './components/card-plante/card-plante.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FilterSideBarComponent } from './components/filter-side-bar/filter-side
     PageAccueilComponent,
     PageDetailsComponent,
     PageNotFoundComponent,
-    FilterSideBarComponent
+    FilterSideBarComponent,
+    CardPlanteComponent
   ],
   imports: [
     BrowserModule,
