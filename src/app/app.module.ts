@@ -11,6 +11,7 @@ import { FilterSideBarComponent } from './components/filter-side-bar/filter-side
 import { CardPlanteComponent } from './components/card-plante/card-plante.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IconComponent } from './components/icon/icon.component';
+import { AvisBarComponent } from './components/avis-bar/avis-bar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { IconComponent } from './components/icon/icon.component';
     PageNotFoundComponent,
     FilterSideBarComponent,
     CardPlanteComponent,
-    IconComponent
+    IconComponent,
+    AvisBarComponent
   ],
   imports: [
     BrowserModule,

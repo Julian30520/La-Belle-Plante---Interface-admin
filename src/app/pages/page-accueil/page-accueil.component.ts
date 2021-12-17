@@ -56,10 +56,10 @@ export class PageAccueilComponent implements OnInit {
         this.listData.length = 9;
       }
     )
-    
-    
+  }
 
-
+  onEventLike() {
+    this.plantouneService.plantLiked$.next('')
   }
 
 }

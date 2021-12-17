@@ -1,0 +1,8 @@
+<div (mouseleave)="onMouseLeave()">
+    <app-icon *ngFor="let star of starState; let starIndex = index" 
+    [iconName]="star"
+    [iconSize]="1.2"
+    [iconColor]="'#ffbf00'"
+    (mouseover)="onMouseOver(starIndex)"
+    ></app-icon>
+</div>
