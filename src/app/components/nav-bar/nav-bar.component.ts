@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { PlantouneService } from 'src/app/services/plantoune.service';
 
 @Component({
@@ -6,20 +7,25 @@ import { PlantouneService } from 'src/app/services/plantoune.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
   likeCounter: number;
+  subPlantLiked!: Subscription;
 
   constructor(private plantouneService: PlantouneService) {
     this.likeCounter = 0;
    }
 
   ngOnInit(): void {
-    this.plantouneService.plantLiked$.subscribe(
+    this.subPlantLiked = this.plantouneService.plantLiked$.subscribe(
       () => {
         console.log('Get new event from Subject');
         this.likeCounter ++;
       }
     )
+  }
+
+  ngOnDestroy(): void {
+      this.subPlantLiked.unsubscribe();
   }
 
 }
