@@ -9,7 +9,7 @@ export class FilterSideBarComponent implements OnInit {
   @Input() listCategories: string[];
   
   constructor() { 
-    this.listCategories = []
+    this.listCategories = [];
   }
 
   ngOnInit(): void {
