@@ -6,9 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./avis-bar.component.scss']
 })
 export class AvisBarComponent implements OnInit {
-  starState: string[];
+  starStates: {stateSelectedUser : boolean, stateHoverUser : boolean}[];
+
   constructor() {
-    this.starState = ['star', 'star', 'star', 'star', 'star'];
+    this.starStates = [];
+
+    for (let index = 0; index < 5; index++) {
+      this.starStates.push(
+        {
+          stateSelectedUser : false,
+          stateHoverUser : false
+        }
+      );
+    }
    }
 
   ngOnInit(): void {
@@ -16,18 +26,37 @@ export class AvisBarComponent implements OnInit {
 
   onMouseOver(index: number) {
     console.log("star over", index);
-    for (let i = 0; i < this.starState.length ; i++) {
+    for (let i = 0; i < this.starStates.length ; i++) {
       if(i <= index) {
-        this.starState[i] = 'star-fill';
+        this.starStates[i].stateHoverUser = true;
       } else {
-        this.starState[i] = 'star';
+        this.starStates[i].stateHoverUser = false;
       }
     }
   }
 
   onMouseLeave() {
     // this.starState = ['star', 'star', 'star', 'star', 'star'];
-    this.starState = this.starState.map(x => x = 'star');
+    const tempTab = [];
+    for (let index = 0; index < this.starStates.length; index++) {
+      tempTab.push(
+        {
+          stateSelectedUser : this.starStates[index].stateSelectedUser,
+          stateHoverUser : this.starStates[index].stateSelectedUser
+        }
+      );
+    }
+    this.starStates = [...tempTab];
+  }
+
+  onClickStar(starIndex: number) {
+    for (let i = 0; i < this.starStates.length ; i++) {
+      if(i <= starIndex) {
+        this.starStates[i].stateSelectedUser = true;
+      } else {
+        this.starStates[i].stateSelectedUser = false;
+      }
+    }
   }
 
 }
