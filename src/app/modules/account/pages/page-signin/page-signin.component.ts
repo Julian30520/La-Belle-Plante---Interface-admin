@@ -21,7 +21,7 @@ export class PageSigninComponent implements OnInit {
     const password = submittedForm.form.value['password'];
     if(email !== '' && password !== '') {
       this.authService.signin(email, password).subscribe(
-        resp => console.log(resp)
+        resp => console.log('Component Page Signin: ', resp)
       )
     } else {
       // afficher une erreur à l'utilisateur
