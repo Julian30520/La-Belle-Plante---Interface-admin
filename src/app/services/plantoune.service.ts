@@ -17,4 +17,8 @@ export class PlantouneService {
   getData(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.apiUrl}/list_products`);
   }
+
+  getPlantFav(userId: number): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.apiUrl}/favPlant?userId=${userId}`)
+  }
 }

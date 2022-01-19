@@ -5761,5 +5761,63 @@
             "product_web_only": "oui"
         }
     ],
-    "users": []
+    "users": [
+        {
+          "email": "test@mail.com",
+          "password": "$2a$10$N316SQCXhFByCtzXaUmym.ywbSQLPqKcjqNEXe/6gvWlLxfOE0YJe",
+          "id": 1
+        },
+        {
+          "email": "test2@mail.com",
+          "password": "$2a$10$y96u3Y5iXr4BUo0jhif1wO25L36Eg.sZLUHdgmPQtEocGoXVXqgjS",
+          "id": 2
+        },
+        {
+          "email": "test3@mail.com",
+          "password": "$2a$10$TJy6h8rCTRMnO6bG531ieOMCb/SqP46xnctGhjVUzfWw0GVIR8vxK",
+          "id": 3
+        },
+        {
+          "email": "coco@mail.com",
+          "password": "$2a$10$.fcxObr8UUEAEKv5R0eK5uort32nWLP.GubS9.IA.vK38Z6Ux8v8m",
+          "id": 4
+        },
+        {
+          "email": "coco2000@mail.col",
+          "password": "$2a$10$6EE9i.dx0LnGffDyZVh/SuwxwM/7/orgwIl4o.5cO2n9hiCNWxkCK",
+          "id": 5
+        },
+        {
+          "email": "coco2000@mail.fri",
+          "password": "$2a$10$kehEbAK1ACC7Gc2rMB2GXu6i4VmjlwEHqcv07CzWlVUw3GKBSAJpu",
+          "firstName": "Coco",
+          "lastName": "2000",
+          "id": 6
+        },
+        {
+          "email": "test42@mail.com",
+          "password": "$2a$10$mkIpe.BwyW2dHpT.xpDkc..Lzb9.kQot3bjvB3.e8sGa7NNtvQezy",
+          "lastName": "McConaway",
+          "id": 7
+        },
+        {
+          "email": "thebest@mail.com",
+          "password": "$2a$10$e9L7OHkShocmCAVlh9AEaeWQmRGzWONwHT37ci/ZBiC/5PMcdHI7K",
+          "firstName": "Chuck",
+          "lastName": "Norris",
+          "id": 8
+        }
+      ],
+    "favPlant" : [
+        {
+            "id": 1,
+            "userId": 8,
+            "plantId": "952438"
+        },
+        {
+            "id": 2,
+            "userId": 8,
+            "plantId": "77390"
+        }
+      ]
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantouneService } from 'src/app/services/plantoune.service';
+import { environment } from 'src/environments/environment';
 import * as _ from 'underscore';
+import jwt_token from 'jwt-decode';
 
 @Component({
   selector: 'app-page-accueil',
@@ -29,33 +31,48 @@ export class PageAccueilComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const token = localStorage.getItem(environment.tokenKey);
+    
+    if(token) {
+      const decodedToken = jwt_token<any>(token);
+      const userId = decodedToken.sub;
+      this.plantouneService.getPlantFav(userId).subscribe(
+        (data: any) => console.log(data)
+      )
 
-    this.plantouneService.getData().subscribe(
-      (listPlant: any[]) => {
-        console.log(listPlant);
+      // faire un call api pour récupérer nos plantes 
+      // toutes les plantes mises en favorites par l'utilsateur connecté => leur ajouter une propriété => plantlikée
+    } else {
 
-        /**
-         * Technique avec Underscore JS pour recupérer les catégories uniques de nos plantes
-         */
-        const listAllCategories = listPlant.map(product => product.product_breadcrumb_label);
-        console.log(listAllCategories);
+      this.plantouneService.getData().subscribe(
+        (listPlant: any[]) => {
+          console.log(listPlant);
+  
+          /**
+           * Technique avec Underscore JS pour recupérer les catégories uniques de nos plantes
+           */
+          const listAllCategories = listPlant.map(product => product.product_breadcrumb_label);
+          console.log(listAllCategories);
+          
+          const listUniqCategories = _.uniq(listAllCategories) 
+          console.log(listUniqCategories);
+          
+  
+          /**
+           * Technique native JS pour recupérer les catégories uniques de nos plantes
+           */
+  
+          const listUniqJsCategories = [...new Set(listAllCategories)];
+          console.log(listUniqJsCategories);
+  
+          this.listCategoriesFilter = listUniqJsCategories;
+          listPlant.forEach(x => {x.plantLike = true})
+          this.listData = listPlant;
+          this.listData.length = 9;
+        }
         
-        const listUniqCategories = _.uniq(listAllCategories) 
-        console.log(listUniqCategories);
-        
-
-        /**
-         * Technique native JS pour recupérer les catégories uniques de nos plantes
-         */
-
-        const listUniqJsCategories = [...new Set(listAllCategories)];
-        console.log(listUniqJsCategories);
-
-        this.listCategoriesFilter = listUniqJsCategories;
-        this.listData = listPlant;
-        this.listData.length = 9;
-      }
-    )
+        )
+    }
   }
 
   onEventLike() {
