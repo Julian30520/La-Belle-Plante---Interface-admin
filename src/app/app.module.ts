@@ -9,9 +9,10 @@ import { PageDetailsComponent } from './pages/page-details/page-details.componen
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FilterSideBarComponent } from './components/filter-side-bar/filter-side-bar.component';
 import { CardPlanteComponent } from './components/card-plante/card-plante.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { IconComponent } from './components/icon/icon.component';
 import { AvisBarComponent } from './components/avis-bar/avis-bar.component';
+import {AuthInterceptor} from "./services/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { AvisBarComponent } from './components/avis-bar/avis-bar.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

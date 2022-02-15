@@ -3,6 +3,8 @@ import { PlantouneService } from 'src/app/services/plantoune.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'underscore';
 import jwt_token from 'jwt-decode';
+import {forkJoin} from "rxjs";
+import {TokenService} from "../../services/token.service";
 
 @Component({
   selector: 'app-page-accueil',
@@ -13,16 +15,16 @@ export class PageAccueilComponent implements OnInit {
   public listData: any[];
   public listCategoriesFilter: string[];
 
-  constructor(private plantouneService: PlantouneService) {
+  constructor(private plantouneService: PlantouneService, private tokenService: TokenService) {
     this.listData = [];
     this.listCategoriesFilter = [];
    }
 
    /**
-    * equivalent de la ligne du dessus 
-    * 
+    * equivalent de la ligne du dessus
+    *
     * plantouneService;
-    * 
+    *
     * constructor(plantouneService: PlantouneService) {
     *   this.plantouneService = plantouneService;
     * }
@@ -31,48 +33,68 @@ export class PageAccueilComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const token = localStorage.getItem(environment.tokenKey);
-    
-    if(token) {
-      const decodedToken = jwt_token<any>(token);
-      const userId = decodedToken.sub;
-      this.plantouneService.getPlantFav(userId).subscribe(
-        (data: any) => console.log(data)
-      )
+    const userId = this.tokenService.getCurrentUserId();
 
-      // faire un call api pour récupérer nos plantes 
+    if(userId) {
+
+      //Alternative du forkjoin
+      const listObservable = [this.plantouneService.getData(), this.plantouneService.getPlantFav(userId)]
+      forkJoin(listObservable).subscribe((listResp: any[]) => {
+        console.log("Reponse forkjoin list plant : ", listResp[0]);
+        console.log("Reponse forkjoin list plant fav : ", listResp[1]);
+      })
+
+      forkJoin({
+        listPlant: this.plantouneService.getData(),
+        listPlantFav: this.plantouneService.getPlantFav(userId)
+      }).subscribe(({listPlant, listPlantFav}) => {
+        console.log("plant liké", listPlantFav);
+        this.listCategoriesFilter = this.buildListCategory(listPlant);
+        this.listData = listPlant;
+        const listPlantIdLike = listPlantFav.map((x: any) => x.plantId);
+        this.listData.forEach((plant: any) => {
+          if (listPlantIdLike.includes(plant.product_id)) {
+            plant.plantLike = true;
+          }
+        });
+        this.listData.length = 9;
+      })
+      // faire un call api pour récupérer nos plantes
+      /*this.plantouneService.getData().subscribe(
+        (listPlant: any[]) => {
+          this.plantouneService.getPlantFav(userId).subscribe(
+            (data: any) => {
+              console.log("plant liké", data);
+              this.listCategoriesFilter = this.buildListCategory(listPlant);
+              this.listData = listPlant;
+              const listPlantIdLike = data.map((x: any) => x.plantId);
+              this.listData.forEach((plant: any) => {
+                if (listPlantIdLike.includes(plant.product_id)) {
+                  plant.plantLike = true;
+                }
+              });
+              this.listData.length = 9;
+            }
+          )
+        }
+      )*/
       // toutes les plantes mises en favorites par l'utilsateur connecté => leur ajouter une propriété => plantlikée
     } else {
 
       this.plantouneService.getData().subscribe(
         (listPlant: any[]) => {
-          console.log(listPlant);
-  
-          /**
-           * Technique avec Underscore JS pour recupérer les catégories uniques de nos plantes
-           */
-          const listAllCategories = listPlant.map(product => product.product_breadcrumb_label);
-          console.log(listAllCategories);
-          
-          const listUniqCategories = _.uniq(listAllCategories) 
-          console.log(listUniqCategories);
-          
-  
-          /**
-           * Technique native JS pour recupérer les catégories uniques de nos plantes
-           */
-  
-          const listUniqJsCategories = [...new Set(listAllCategories)];
-          console.log(listUniqJsCategories);
-  
-          this.listCategoriesFilter = listUniqJsCategories;
-          listPlant.forEach(x => {x.plantLike = true})
+          this.listCategoriesFilter = this.buildListCategory(listPlant);
           this.listData = listPlant;
           this.listData.length = 9;
         }
-        
         )
     }
+  }
+
+  private buildListCategory(listPlant: any[]): string[] {
+    const listAllCategories = listPlant.map(product => product.product_breadcrumb_label);
+    const listUniqCategories = _.uniq(listAllCategories)
+    return listUniqCategories;
   }
 
   onEventLike() {
