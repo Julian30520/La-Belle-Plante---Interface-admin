@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table-list.component.scss']
 })
 export class TableListComponent implements OnInit {
+  public headers: string[];
 
-  constructor() { }
+  constructor() {
+    this.headers = ["Image", "Intitulé", "Prix", "Quantité", "Stock", "Catégorie", "Avis", "Actions"];
+  }
 
   ngOnInit(): void {
   }
