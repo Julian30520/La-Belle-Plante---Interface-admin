@@ -10,7 +10,7 @@ export class Plant {
   rating: number;
   id: number;
 
-  constructor(
+  constructor( 
     name: string,
     price: string,
     quantity: number,

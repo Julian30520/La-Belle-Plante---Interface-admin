@@ -16,7 +16,7 @@ export class EditPlantComponent implements OnInit {
     private router: Router
   ) {
     this.route.paramMap.subscribe((param: ParamMap) => {
-      const plantId = Number(param.get('952438'));
+      const plantId = Number(param.get('id'));
       console.log(plantId);
       this.adminService.getPlantById(plantId).subscribe((plant: Plant) => {
         this.plantEdit = plant;
