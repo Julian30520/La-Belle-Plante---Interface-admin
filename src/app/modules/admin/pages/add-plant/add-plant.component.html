@@ -1,10 +1,4 @@
 <div class="title d-flex justify-content-center mt-5">
-<<<<<<< HEAD
     <h2 style="color: #16a14b">Ajouter une plante:</h2>
 </div>
-  <app-form [init]= "newPlant" (submitted)="onSubmitted($event)"></app-form>
-=======
-  <h2 style="color: #16a14b">Ajouter une pante :</h2>
-</div>
-<app-form></app-form>
->>>>>>> 5d56bee2a6dea4266408d78a7efd6bd0f1630218
+<app-form [initForm]="newPlant" (submitted)="onSubmitted($event)"></app-form>

@@ -26,9 +26,11 @@ export class FormComponent implements OnInit {
       rating: [this.initForm.rating],
       id: [this.initForm.id],
     });
-  }
+}
 
   onSubmit(): void {
     this.submitted.emit(this.form.value);
+    console.log(this.form.value);
+    
   }
 }
