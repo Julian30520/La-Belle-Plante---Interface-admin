@@ -8,20 +8,20 @@ export class Plant {
   category: Category;
   urlPicture: string;
   rating: number;
-  id: number;
+  id!: number | null;
 
-  constructor( 
-    name: string,
-    price: string,
-    quantity: number,
-    inStock: string,
-    category: Category,
+  constructor(
+    name: string = '',
+    price: number = 5.0,
+    quantity: number = 1,
+    inStock: boolean | string = true,
+    category: Category = Category.plantesVertes,
     urlPicture: string = 'https://picsum.photos/id/18/200/300',
     rating: number = 0,
-    id: string
+    id: number | null = null
   ) {
     this.name = name;
-    this.price = parseFloat(price);
+    this.price = price;
     this.quantity = quantity;
 
     if (inStock === 'partiellement disponible' || inStock === 'disponible') {
@@ -33,6 +33,6 @@ export class Plant {
     this.category = category;
     this.urlPicture = urlPicture;
     this.rating = rating;
-    this.id = parseInt(id);
+    this.id = id;
   }
 }

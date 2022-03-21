@@ -56,4 +56,8 @@ export class AdminService {
       this.subCollection$.next(listPlant);
     });
   }
+
+  addPlant(newPlant: Plant): Observable<any> {
+    return this.http.post<any[]>(`${this.urlApi}/add-plant`, newPlant);
+  }
 }
