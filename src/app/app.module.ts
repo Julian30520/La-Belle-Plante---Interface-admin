@@ -13,6 +13,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { IconComponent } from './components/icon/icon.component';
 import { AvisBarComponent } from './components/avis-bar/avis-bar.component';
 import {AuthInterceptor} from "./services/auth.interceptor";
+import { FormComponent } from './modules/admin/components/form/form.component';
+import { TableListComponent } from './modules/admin/pages/table-list/table-list.component';
+import { AddPlantComponent } from './modules/admin/pages/add-plant/add-plant.component';
+import { EditPlantComponent } from './modules/admin/pages/edit-plant/edit-plant.component';
+import {AdminModule} from "./modules/admin/admin.module";
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import {AuthInterceptor} from "./services/auth.interceptor";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AdminModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
