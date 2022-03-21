@@ -1,7 +1,7 @@
 {
     "list_products" : [
         {
-            "product_id": "952438",
+            "id": "952438",
             "product_name": "Anthurium, pot D12cm",
             "product_price": "17,50",
             "product_instock": "disponible",
