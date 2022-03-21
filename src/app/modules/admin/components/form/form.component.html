@@ -1,1 +1,53 @@
-<p>form works!</p>
+<div class="title d-flex justify-content-center mt-5">
+<h2 style="color:#16A14B;">Ajouter une pante :</h2>
+</div>
+<div class="d-flex justify-content-center mt-5" >
+    <form [formGroup]="form">
+    <div class="form-group mb-2" style = "width: 400px;">
+        <label for="typeNamePlant">Nom de la plante :</label>
+        <input type="text" class="form-control mt-2" id="typeNamePlant" formControlName="typeNamePlant">
+        <!-- <div class="alert alert-danger" >
+            Champs requis
+        </div> -->
+    </div>
+
+    <div class="form-group mb-2">
+        <label for="categorie">Catégorie :</label>
+        <select class="form-select  mt-2" id="categorie" formControlName="categorie">
+            <option selected>Sélectionner votre catégorie...</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-2">
+        <label for="pricePlant">Prix de la plante :</label>
+        <input type="text" class="form-control  mt-2" id="pricePlant" formControlName="pricePlant">
+        <div class="alert alert-danger" *ngIf="form.controls['client'].invalid && form.controls['client'].touched && form.controls['client'].errors?.['required'] ">
+            Champs requis
+        </div>
+        <div class="alert alert-danger" *ngIf="form.controls['client'].invalid && form.controls['client'].touched && form.controls['client'].errors?.['minlength'] ">
+            Un nom de client valide comporte 2 caractère minimum
+        </div>
+    </div>
+
+    <div class="form-group mb-2">
+        <label for="quantity">Quantité :</label>
+        <input type="quantity" class="form-control  mt-2" id="quantity" formControlName="quantity">
+    </div>
+
+    <div class="form-group mb-2">
+        <label for="linkPicture">Url :</label>
+        <input type="linkPicture" class="form-control  mt-2" id="linkPicture" formControlName="linkPicture">
+    </div>
+
+    <div class="form-check mb-5 d-flex flex-column p-0">
+        <label for="stock">En stock :</label>
+        <input type="checkbox" class="form-check-input ms-1 mt-2" id="stock" formControlName="stock">
+    </div>
+
+    
+    <div class="btn d-flex justify-content-center mb-5">
+    <button type="submit" class="btn btn-primary ps-5 pe-5 " style="background-color:#16A14B;" [disabled]="form.invalid">Valider</button>
+    </div>
+</form>
+</div>
+

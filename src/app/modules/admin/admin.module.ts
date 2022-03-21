@@ -22,7 +22,8 @@ import { TableComponent } from './components/table/table.component';
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class AdminModule { }

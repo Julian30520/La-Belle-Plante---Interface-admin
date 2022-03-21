@@ -18,6 +18,7 @@ import { TableListComponent } from './modules/admin/pages/table-list/table-list.
 import { AddPlantComponent } from './modules/admin/pages/add-plant/add-plant.component';
 import { EditPlantComponent } from './modules/admin/pages/edit-plant/edit-plant.component';
 import { AdminModule } from './modules/admin/admin.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
