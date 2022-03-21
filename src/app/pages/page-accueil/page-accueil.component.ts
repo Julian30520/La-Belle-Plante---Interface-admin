@@ -94,6 +94,7 @@ export class PageAccueilComponent implements OnInit {
   private buildListCategory(listPlant: any[]): string[] {
     const listAllCategories = listPlant.map(product => product.product_breadcrumb_label);
     const listUniqCategories = _.uniq(listAllCategories)
+    console.log(listUniqCategories);
     return listUniqCategories;
   }
 

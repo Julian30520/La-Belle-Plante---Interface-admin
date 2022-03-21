@@ -6,6 +6,7 @@ import {AddPlantComponent} from "./pages/add-plant/add-plant.component";
 import {EditPlantComponent} from "./pages/edit-plant/edit-plant.component";
 import {FormComponent} from "./components/form/form.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TableComponent } from './components/table/table.component';
 
 
 
@@ -14,7 +15,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     TableListComponent,
     AddPlantComponent,
     EditPlantComponent,
-    FormComponent
+    FormComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
