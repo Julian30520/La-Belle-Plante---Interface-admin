@@ -20,7 +20,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class AdminModule { }
