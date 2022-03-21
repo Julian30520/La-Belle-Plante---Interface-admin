@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject, tap } from 'rxjs';
-import { Plant } from '../../../models/plant';
-import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import {map, Observable, Subject, tap} from "rxjs";
+import {Plant} from "../../../models/plant";
+import {environment} from "../../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {Category} from "../../../models/category";
 
 @Injectable({
   providedIn: 'root',
@@ -13,32 +14,17 @@ export class AdminService {
   private urlApi = environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    this.collection$ = this.http
-      .get<any[]>(`${this.urlApi}/list_products`)
-      .pipe(
-        tap((tapObj) => console.log(tapObj)),
-        map((tabObj) => {
-          return tabObj.map((obj) => {
-            let inStock: boolean;
-            if (
-              obj.product_instock === 'partiellement disponible' ||
-              obj.product_instock === 'disponible'
-            ) {
-              inStock = true;
-            } else {
-              inStock = false;
-            }
-            return new Plant(
-              obj.product_name,
-              parseFloat(obj.product_unitprice_ati),
-              obj.product_qty,
-              inStock,
-              obj.product_breadcrumb_label,
-              obj.product_url_picture,
-              obj.product_rating,
-              obj.product_id
-            );
-          });
+    this.collection$ = this.http.get<any[]>(`${this.urlApi}/list_products`).pipe(
+      map(tabObj => {
+        return tabObj.map(obj => {
+          return new Plant(obj.product_name,
+                            obj.product_unitprice_ati,
+                            obj.product_qty,
+                            obj.product_instock,
+                            obj.product_breadcrumb_label as Category,
+                            obj.product_url_picture,
+                            obj.product_rating,
+                            obj.product_id);
         })
       );
   }
@@ -55,6 +41,12 @@ export class AdminService {
   }
 
   public deleteById(plantId : number): Observable<any>{
-    return this.http.delete<any>(`${this.urlApi}/list_products/${plantId}`).pipe(tap(() =>));
+    return this.http.delete<any>(`${this.urlApi}/list_products/${plantId}`).pipe(tap(() => this.refreshCollection()));
+  }
+
+  public refreshCollection(): void {
+    this.collection$.subscribe((listPlant: Plant[]) => {
+      this.subCollection$.next(listPlant);
+    })
   }
 }

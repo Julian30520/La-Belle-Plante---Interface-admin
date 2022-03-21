@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
       name: [this.initForm.name, Validators.required],
       price: [this.initForm.price, Validators.required],
       quantity: [this.initForm.quantity, Validators.required],
-      instock: [this.initForm.instock],
+      inStock: [this.initForm.inStock],
       category: [this.initForm.category, Validators.required],
       urlPicture: [this.initForm.urlPicture],
       rating: [this.initForm.rating],
