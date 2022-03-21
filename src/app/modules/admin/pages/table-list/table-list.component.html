@@ -1,1 +1,16 @@
-<app-table [headers]="headers"></app-table>
+<div *ngIf="collection$ | async as collection">
+  <app-table [headers]="headers">
+    <tr *ngFor="let plant of collection">
+      <td>
+        <img src="{{ plant.urlPicture }}" style="width: 50px">
+      </td>
+      <td>{{ plant.name }}</td>
+      <td>{{ plant.price }}</td>
+      <td>{{ plant.quantity }}</td>
+      <td>{{ plant.inStock }}</td>
+      <td>{{ plant.category }}</td>
+      <td>{{ plant.rating }}</td>
+    </tr>
+  </app-table>
+</div>
+

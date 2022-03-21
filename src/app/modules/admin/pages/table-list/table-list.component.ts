@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from "../../services/admin.service";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Plant} from "../../../../models/plant";
 
 @Component({
@@ -10,12 +10,13 @@ import {Plant} from "../../../../models/plant";
 })
 export class TableListComponent implements OnInit {
   public headers: string[];
-  public collection$: Observable<Plant[]>;
+  public collection$: Subject<Plant[]>;
 
   constructor(private adminService: AdminService) {
     this.headers = ["Image", "Intitulé", "Prix", "Quantité", "Stock", "Catégorie", "Avis", "Actions"];
-    this.collection$ = this.adminService.collection$;
-    this.adminService.collection$.subscribe(data => {
+    this.collection$ = this.adminService.subCollection$;
+    this.adminService.refreshCollection();
+    this.collection$.subscribe(data => {
       console.log(data)
     })
   }
