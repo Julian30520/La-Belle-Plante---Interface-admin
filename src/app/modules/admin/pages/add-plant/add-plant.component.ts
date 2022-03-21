@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Plant } from 'src/app/models/plant';
-
 import { AdminService } from '../../services/admin.service';
 
 @Component({

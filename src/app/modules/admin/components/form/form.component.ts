@@ -31,6 +31,6 @@ export class FormComponent implements OnInit {
   onSubmit(): void {
     this.submitted.emit(this.form.value);
     console.log(this.form.value);
-    
   }
+
 }

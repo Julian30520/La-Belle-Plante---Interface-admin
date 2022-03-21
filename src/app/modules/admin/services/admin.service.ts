@@ -24,7 +24,7 @@ export class AdminService {
                             obj.product_breadcrumb_label as Category,
                             obj.product_url_picture,
                             obj.product_rating,
-                            obj.product_id);
+                            obj.id);
       })
     })
     )
@@ -52,6 +52,18 @@ export class AdminService {
   }
 
   addPlant(newPlant: Plant): Observable<any> {
-    return this.http.post<any[]>(`${this.urlApi}/add-plant`, newPlant);
+    //mapping inverse
+
+    const body = {
+      product_name: newPlant.name,
+      product_unitprice_ati : newPlant.price,
+      product_instock : newPlant.inStock,
+      product_qty : newPlant.quantity,
+      product_breadcrumb_label : newPlant.category,
+      product_rating : newPlant.rating,
+      product_url_picture : newPlant.urlPicture,
+      id : newPlant.id
+    }
+    return this.http.post<any[]>(`${this.urlApi}/list_products`, body)
   }
 }
