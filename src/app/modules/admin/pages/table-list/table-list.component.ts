@@ -12,7 +12,10 @@ export class TableListComponent implements OnInit {
   public headers: string[];
   public collection$: Subject<Plant[]>;
   public collection!: Plant[];
-  public offset: number = 0;
+  public offset: number = 30;
+  public actualOffset: number = 0;
+  public currentPage: number = 1;
+  public pageTotalNumber: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private adminService: AdminService) {
     this.headers = ["Image", "Intitulé", "Prix", "Quantité", "Stock", "Catégorie", "Avis", "Actions"];
@@ -20,8 +23,7 @@ export class TableListComponent implements OnInit {
     this.adminService.refreshCollection();
     this.collection$.subscribe(data => {
       this.collection = [...data];
-      this.collection.length = 30;
-      console.log(this.collection);
+      this.collection.length = this.offset;
     })
 
 
@@ -31,15 +33,28 @@ export class TableListComponent implements OnInit {
   }
 
   onNavidationChange(offset: number): void {
-    // const start = offset;
-    // const end = offset + this.offset;
-    // const range = [...Array(end - start + 1).keys()].map(x => x + start);
-    // this.adminService.refreshCollection();
-    // this.collection$.subscribe(data => {
-    //   this.collection = [...data];
-    //   this.collection. = 30;
-    //   console.log(this.collection);
-    // })
+    console.log('coucou');
+    const start = offset;
+    this.actualOffset = offset;
+    let end: number = 0;
+    if (offset == 270) {
+      end = offset + 28;
+    } else {
+      end = offset + this.offset;
+    }
+
+    this.adminService.refreshCollection();
+    this.collection$.subscribe(data => {
+      this.collection = [...data];
+      let newDataList = this.collection.slice(start, end);
+      this.collection = [...newDataList];
+      console.log(this.collection);
+    })
+  }
+
+  setCurrentPage(index: number) {
+    this.currentPage = index + 1;
+    console.log(this.currentPage);
   }
 
 }
