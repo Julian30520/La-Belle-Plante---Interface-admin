@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../services/admin.service';
-import { Observable, Subject } from 'rxjs';
-import { Plant } from '../../../../models/plant';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {AdminService} from '../../services/admin.service';
+import {Subject} from 'rxjs';
+import {Plant} from '../../../../models/plant';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-table-list',
@@ -13,6 +13,7 @@ export class TableListComponent implements OnInit {
   public headers: string[];
   public collection$: Subject<Plant[]>;
   public collection!: Plant[];
+  public collectionRaw!: Plant[];
   public offset: number = 30;
   public actualOffset: number = 0;
   public currentPage: number = 1;
@@ -33,14 +34,15 @@ export class TableListComponent implements OnInit {
     this.adminService.refreshCollection();
     this.collection$.subscribe((data) => {
       this.collection = [...data];
+      this.collectionRaw = [...data];
       this.collection.length = this.offset;
     })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onNavidationChange(offset: number): void {
-    console.log('coucou');
     const start = offset;
     this.actualOffset = offset;
     let end: number = 0;
@@ -50,13 +52,8 @@ export class TableListComponent implements OnInit {
       end = offset + this.offset;
     }
 
-    this.adminService.refreshCollection();
-    this.collection$.subscribe(data => {
-      this.collection = [...data];
-      let newDataList = this.collection.slice(start, end);
-      this.collection = [...newDataList];
-      console.log(this.collection);
-    })
+    let newDataList = this.collectionRaw.slice(start, end);
+    this.collection = [...newDataList];
   }
 
   setCurrentPage(index: number) {
@@ -64,13 +61,21 @@ export class TableListComponent implements OnInit {
     console.log(this.currentPage);
   }
 
-  public onClickGoToEdit(plant: Plant): void {
-    this.router.navigateByUrl(`/admin/edit/${plant.id}`);
+  setPreviousPage() {
+    this.currentPage = this.currentPage - 1;
+  }
+
+  setNextPage() {
+    this.currentPage = this.currentPage + 1;
   }
 
   public onClickDelete(plant: Plant): void {
     this.adminService.deleteById(plant.id).subscribe((resp) => {
       console.log('Suppression successful : ', resp);
     });
+  }
+
+  onAddPage() {
+    this.router.navigateByUrl("/admin/add");
   }
 }
