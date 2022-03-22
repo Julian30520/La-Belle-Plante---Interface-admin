@@ -1,25 +1,14 @@
 {
   "list_products": [
     {
-      "id": "801427",
       "product_name": "Strelitzia Nicolai : D.21-H.75",
-      "product_price": "59,99",
-      "product_instock": "disponible",
-      "product_discount_code": "",
-      "product_color": "Blanc",
-      "product_unitprice_ati": "59.99",
-      "product_unitprice_tf": "54.5",
-      "product_discount_tf": "0.00",
-      "product_discount_ati": "0.00",
-      "product_qty": 0,
+      "product_unitprice_ati": 40,
+      "product_instock": true,
+      "product_qty": 5,
       "product_breadcrumb_label": "plantes fleuries",
-      "product_url_page": "https://www.truffaut.com/strelitzia-nicolai-d-21-h-75-801427.html",
+      "product_rating": 3,
       "product_url_picture": "https://images.truffaut.com/media/catalog/product/cdn:///Articles/jpg/0801000/801427_001.jpg",
-      "product_shipping_method": null,
-      "product_image_source": "https://images.truffaut.com/media/catalog/product/cdn:///Articles/jpg/0801000/801427_001.jpg",
-      "product_seller": "market place",
-      "product_web_only": "non",
-      "product_rating": 3
+      "id": "801427"
     },
     {
       "id": "910744",
@@ -5939,27 +5928,6 @@
       "product_url_picture": "https://images.truffaut.com/media/catalog/product/cdn:///Articles/jpg/0832000/832901_001.jpg",
       "product_shipping_method": null,
       "product_image_source": "https://images.truffaut.com/media/catalog/product/cdn:///Articles/jpg/0832000/832901_001.jpg",
-      "product_seller": "Truffaut",
-      "product_web_only": "oui",
-      "product_rating": 3
-    },
-    {
-      "id": "832900",
-      "product_name": "Cycas revoluta : cache-pot gris D21cm",
-      "product_price": "74,99",
-      "product_instock": "non disponible",
-      "product_discount_code": "",
-      "product_color": "",
-      "product_unitprice_ati": "74.99",
-      "product_unitprice_tf": "68.2",
-      "product_discount_tf": "0.00",
-      "product_discount_ati": "0.00",
-      "product_qty": 0,
-      "product_breadcrumb_label": "palmiers dintrieur",
-      "product_url_page": "https://www.truffaut.com/cycas-revoluta-cache-pot-gris-d21cm-832900.html",
-      "product_url_picture": "https://images.truffaut.com/media/catalog/product/cdn:///Articles/jpg/0832000/832900_001.jpg",
-      "product_shipping_method": null,
-      "product_image_source": "https://images.truffaut.com/media/catalog/product/cdn:///Articles/jpg/0832000/832900_001.jpg",
       "product_seller": "Truffaut",
       "product_web_only": "oui",
       "product_rating": 3

@@ -4,6 +4,7 @@ import { Plant } from '../../../models/plant';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../../../models/category';
+import {random} from "underscore";
 
 @Injectable({
   providedIn: 'root',
@@ -83,17 +84,25 @@ export class AdminService {
 
   addPlant(newPlant: Plant): Observable<any> {
     //mapping inverse
+    let inStrockStr: string;
+
+    if (newPlant.inStock) {
+      inStrockStr = 'disponible';
+    } else {
+      inStrockStr = 'indisponible';
+    }
 
     const body = {
       product_name: newPlant.name,
       product_unitprice_ati : newPlant.price,
-      product_instock : newPlant.inStock,
+      product_instock : inStrockStr,
       product_qty : newPlant.quantity,
       product_breadcrumb_label : newPlant.category,
       product_rating : newPlant.rating,
       product_url_picture : newPlant.urlPicture,
-      id : newPlant.id
+      id : random(10000, 90000).toString()
     }
+    console.log(body);
     return this.http.post<any[]>(`${this.urlApi}/list_products`, body)
   }
 }

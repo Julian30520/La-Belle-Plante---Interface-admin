@@ -85,6 +85,7 @@ export class TableListComponent implements OnInit {
         });
         Swal.fire('Suppression...', 'La plante a bien été supprimé.', 'success');
       }
+      this.currentPage = 1;
     });
   }
 
