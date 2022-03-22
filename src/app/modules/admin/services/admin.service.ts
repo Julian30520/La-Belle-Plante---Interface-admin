@@ -17,24 +17,20 @@ export class AdminService {
   private urlApi = environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    this.collection$ = this.http
-      .get<any[]>(`${this.urlApi}/list_products`)
-      .pipe(
-        map((tabObj: any[]) => {
-          return tabObj.map((obj) => {
-            return new Plant(
-              obj.product_name,
-              obj.product_unitprice_ati,
-              obj.product_qty,
-              obj.product_instock,
-              obj.product_breadcrumb_label as Category,
-              obj.product_url_picture,
-              obj.product_rating,
-              obj.id
-            );
-          });
-        })
-      );
+    this.collection$ = this.http.get<any[]>(`${this.urlApi}/list_products`).pipe(
+      map(tabObj => {
+        return tabObj.map(obj => {
+          return new Plant(obj.product_name,
+                            obj.product_unitprice_ati,
+                            obj.product_qty,
+                            obj.product_instock,
+                            obj.product_breadcrumb_label as Category,
+                            obj.product_url_picture,
+                            obj.product_rating,
+                            obj.id);
+      })
+    })
+    )
   }
 
   public updatePlant(newPlant: Plant): Observable<Plant> {
@@ -86,6 +82,18 @@ export class AdminService {
   }
 
   addPlant(newPlant: Plant): Observable<any> {
-    return this.http.post<any[]>(`${this.urlApi}/add-plant`, newPlant);
+    //mapping inverse
+
+    const body = {
+      product_name: newPlant.name,
+      product_unitprice_ati : newPlant.price,
+      product_instock : newPlant.inStock,
+      product_qty : newPlant.quantity,
+      product_breadcrumb_label : newPlant.category,
+      product_rating : newPlant.rating,
+      product_url_picture : newPlant.urlPicture,
+      id : newPlant.id
+    }
+    return this.http.post<any[]>(`${this.urlApi}/list_products`, body)
   }
 }
