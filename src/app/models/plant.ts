@@ -8,7 +8,7 @@ export class Plant {
   category: Category;
   urlPicture: string;
   rating: number;
-  id!: number | null;
+  id: number | null;
 
   constructor(
     name: string = '',

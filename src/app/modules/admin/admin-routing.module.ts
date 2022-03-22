@@ -7,7 +7,7 @@ import { EditPlantComponent } from './pages/edit-plant/edit-plant.component';
 const routes: Routes = [
   { path: '', component: TableListComponent },
   { path: 'add', component: AddPlantComponent },
-  { path: 'edit', component: EditPlantComponent },
+  { path: 'edit/:id', component: EditPlantComponent },
 ];
 
 @NgModule({

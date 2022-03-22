@@ -16,11 +16,9 @@
     <div class="form-group mb-2">
       <label for="category">Catégorie :</label>
       <select class="form-select mt-2" id="category" formControlName="category">
-        <option selected>Sélectionner votre catégorie...</option>
-        <option *ngFor="let cat of categorie | keyvalue" 
-                    [value]="cat.key">
-                    {{ cat.value }}
-            </option>
+        <option *ngFor="let cat of categorie | keyvalue" [value]="cat.value">
+          {{ cat.value }}
+        </option>
       </select>
     </div>
 
