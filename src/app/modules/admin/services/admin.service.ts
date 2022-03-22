@@ -9,6 +9,9 @@ import { Category } from '../../../models/category';
   providedIn: 'root',
 })
 export class AdminService {
+  map(plant: any): Plant {
+    throw new Error('Method not implemented.');
+  }
   public collection$!: Observable<Plant[]>;
   public subCollection$ = new Subject<Plant[]>();
   private urlApi = environment.apiUrl;
@@ -17,7 +20,7 @@ export class AdminService {
     this.collection$ = this.http
       .get<any[]>(`${this.urlApi}/list_products`)
       .pipe(
-        map((tabObj) => {
+        map((tabObj: any[]) => {
           return tabObj.map((obj) => {
             return new Plant(
               obj.product_name,
@@ -27,25 +30,50 @@ export class AdminService {
               obj.product_breadcrumb_label as Category,
               obj.product_url_picture,
               obj.product_rating,
-              obj.product_id
+              obj.id
             );
           });
         })
       );
   }
 
-  public updatePlant(plant: Plant): Observable<Plant> {
+  public updatePlant(newPlant: Plant): Observable<Plant> {
+    const body = {
+      product_name: newPlant.name,
+      product_unitprice_ati: newPlant.price,
+      product_instock: newPlant.inStock,
+      product_qty: newPlant.quantity,
+      product_breadcrumb_label: newPlant.category,
+      product_rating: newPlant.rating,
+      product_url_picture: newPlant.urlPicture,
+      id: newPlant.id,
+    };
     return this.http.put<Plant>(
-      `${this.urlApi}/list_products/${plant.id}`,
-      plant
+      `${this.urlApi}/list_products/${newPlant.id}`,
+      body
     );
   }
 
   public getPlantById(plantId: number): Observable<Plant> {
-    return this.http.get<Plant>(`${this.urlApi}/list_products/${plantId}`);
+    return this.http.get<Plant>(`${this.urlApi}/list_products/${plantId}`).pipe(
+      //Observable<Plant>
+      // On veut modifier l'obs qui contient un objet Plant donc on utilise un opérateur qui modifie des observalb => map()
+      map((obj: any) => {
+        return new Plant(
+          obj.product_name,
+          obj.product_unitprice_ati,
+          obj.product_qty,
+          obj.product_instock,
+          obj.product_breadcrumb_label as Category,
+          obj.product_url_picture,
+          obj.product_rating,
+          obj.id
+        );
+      })
+    );
   }
 
-  public deleteById(plantId: number): Observable<any> {
+  public deleteById(plantId: any): Observable<any> {
     return this.http
       .delete<any>(`${this.urlApi}/list_products/${plantId}`)
       .pipe(tap(() => this.refreshCollection()));

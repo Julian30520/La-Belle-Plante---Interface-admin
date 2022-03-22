@@ -15,6 +15,14 @@ export class EditPlantComponent implements OnInit {
     private adminService: AdminService,
     private router: Router
   ) {
+    // let idParam = this.route.snapshot.params['idParam'];
+    // console.log(idParam);
+
+    // this.adminService.getPlantById(idParam).subscribe((plant: any) => {
+    //   this.plantEdit = this.adminService.map(plant);
+    //   console.log(this.plantEdit);
+    // });
+
     this.route.paramMap.subscribe((param: ParamMap) => {
       const plantId = Number(param.get('id'));
       console.log(plantId);
