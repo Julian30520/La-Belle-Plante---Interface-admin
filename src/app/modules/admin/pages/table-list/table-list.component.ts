@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {AdminService} from '../../services/admin.service';
-import {Subject} from 'rxjs';
-import {Plant} from '../../../../models/plant';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
+import { Subject } from 'rxjs';
+import { Plant } from '../../../../models/plant';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-table-list',
@@ -36,11 +37,10 @@ export class TableListComponent implements OnInit {
       this.collection = [...data];
       this.collectionRaw = [...data];
       this.collection.length = this.offset;
-    })
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onNavidationChange(offset: number): void {
     const start = offset;
@@ -70,12 +70,25 @@ export class TableListComponent implements OnInit {
   }
 
   public onClickDelete(plant: Plant): void {
-    this.adminService.deleteById(plant.id).subscribe((resp) => {
-      console.log('Suppression successful : ', resp);
+    Swal.fire({
+      title: 'tu es sur de vouloir supprimer ?',
+      text: 'tu ne pourras plus revenir en arriere!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, Supprimer',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.adminService.deleteById(plant.id).subscribe((resp) => {
+          console.log('Suppression successful : ', resp);
+        });
+        Swal.fire('Supprimer !', 'la plante a bien été supprimée.', 'success');
+      }
     });
   }
 
   onAddPage() {
-    this.router.navigateByUrl("/admin/add");
+    this.router.navigateByUrl('/admin/add');
   }
 }
