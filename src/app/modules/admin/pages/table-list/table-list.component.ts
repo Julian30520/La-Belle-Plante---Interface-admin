@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {AdminService} from "../../services/admin.service";
-import {Observable, Subject} from "rxjs";
-import {Plant} from "../../../../models/plant";
+import { AdminService } from '../../services/admin.service';
+import { Observable, Subject } from 'rxjs';
+import { Plant } from '../../../../models/plant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-list',
   templateUrl: './table-list.component.html',
-  styleUrls: ['./table-list.component.scss']
+  styleUrls: ['./table-list.component.scss'],
 })
 export class TableListComponent implements OnInit {
   public headers: string[];
@@ -17,20 +18,26 @@ export class TableListComponent implements OnInit {
   public currentPage: number = 1;
   public pageTotalNumber: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  constructor(private adminService: AdminService) {
-    this.headers = ["Image", "Intitulé", "Prix", "Quantité", "Stock", "Catégorie", "Avis", "Actions"];
+  constructor(private adminService: AdminService, private router: Router) {
+    this.headers = [
+      'Image',
+      'Intitulé',
+      'Prix',
+      'Quantité',
+      'Stock',
+      'Catégorie',
+      'Avis',
+      'Actions',
+    ];
     this.collection$ = this.adminService.subCollection$;
     this.adminService.refreshCollection();
-    this.collection$.subscribe(data => {
+    this.collection$.subscribe((data) => {
       this.collection = [...data];
       this.collection.length = this.offset;
     })
-
-
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onNavidationChange(offset: number): void {
     console.log('coucou');
@@ -57,4 +64,13 @@ export class TableListComponent implements OnInit {
     console.log(this.currentPage);
   }
 
+  public onClickGoToEdit(plant: Plant): void {
+    this.router.navigateByUrl(`/admin/edit/${plant.id}`);
+  }
+
+  public onClickDelete(plant: Plant): void {
+    this.adminService.deleteById(plant.id).subscribe((resp) => {
+      console.log('Suppression successful : ', resp);
+    });
+  }
 }
