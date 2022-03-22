@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
 import { Plant } from 'src/app/models/plant';
 import Swal from 'sweetalert2';
+
+
 import { AdminService } from '../../services/admin.service';
 
 @Component({
