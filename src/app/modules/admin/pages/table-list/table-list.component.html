@@ -24,11 +24,9 @@
   >
     <nav aria-label="Page navigation">
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item" [ngClass]="{'page-item disabled' : actualOffset === 0}"><span class="page-link" (click)="onNavidationChange(actualOffset - 30)">Précédent</span></li>
+        <li class="page-item" [ngClass]="{'page-item active' : currentPage === index + 1}" (click)="setCurrentPage(index)" *ngFor="let page of pageTotalNumber; let index = index;"><span class="page-link" (click)="onNavidationChange(index * 30)">{{ index + 1 }}</span></li>
+        <li class="page-item" [ngClass]="{'page-item disabled' : actualOffset === 270}"><span class="page-link" (click)="onNavidationChange(actualOffset + 30)">Suivant</span></li>
       </ul>
     </nav>
   </div>
