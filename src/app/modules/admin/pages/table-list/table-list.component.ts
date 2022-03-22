@@ -71,19 +71,19 @@ export class TableListComponent implements OnInit {
 
   public onClickDelete(plant: Plant): void {
     Swal.fire({
-      title: 'tu es sur de vouloir supprimer ?',
-      text: 'tu ne pourras plus revenir en arriere!',
+      title: 'Êtes-vous sûr de vouloir supprimer cette plante ?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, Supprimer',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler',
     }).then((result) => {
       if (result.isConfirmed) {
         this.adminService.deleteById(plant.id).subscribe((resp) => {
           console.log('Suppression successful : ', resp);
         });
-        Swal.fire('Supprimer !', 'la plante a bien été supprimée.', 'success');
+        Swal.fire('Suppression...', 'La plante a bien été supprimé.', 'success');
       }
     });
   }
