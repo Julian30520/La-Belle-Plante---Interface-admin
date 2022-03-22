@@ -8,9 +8,17 @@
         id="name"
         formControlName="name"
       />
-      <!-- <div class="alert alert-danger" >
-            Champs requis
-        </div> -->
+      <div
+      class="alert alert-danger"
+      *ngIf="form.controls['name'].invalid && form.controls['name'].touched && form.controls['name'].errors?.['required'] "
+    >
+      Champs requis
+    </div> 
+     <div
+      class="alert alert-danger"
+      *ngIf="form.controls['name'].invalid && form.controls['name'].touched && form.controls['name'].errors?.['required'] ">
+      Une plante valide comporte un nom
+    </div> 
     </div>
 
     <div class="form-group mb-2">
@@ -20,6 +28,17 @@
           {{ cat.value }}
         </option>
       </select>
+      <div
+      class="alert alert-danger"
+      *ngIf="form.controls['category'].invalid && form.controls['category'].touched && form.controls['category'].errors?.['required'] "
+    >
+      Champs requis
+    </div> 
+     <div
+      class="alert alert-danger"
+      *ngIf="form.controls['category'].invalid && form.controls['category'].touched && form.controls['category'].errors?.['required'] ">
+      Une plante valide comporte une catégorie.
+    </div> 
     </div>
 
     <div class="form-group mb-2">
@@ -30,18 +49,16 @@
         id="price"
         formControlName="price"
       />
-      <!-- <div
+      <div
         class="alert alert-danger"
-        *ngIf="form.controls['client'].invalid && form.controls['client'].touched && form.controls['client'].errors?.['required'] "
-      >
+        *ngIf="form.controls['price'].invalid && form.controls['price'].touched && form.controls['price'].errors?.['required'] ">
         Champs requis
-      </div> -->
-      <!-- <div
+      </div> 
+       <div
         class="alert alert-danger"
-        *ngIf="form.controls['client'].invalid && form.controls['client'].touched && form.controls['client'].errors?.['minlength'] "
-      >
-        Un nom de client valide comporte 2 caractère minimum
-      </div> -->
+        *ngIf="form.controls['price'].invalid && form.controls['price'].touched && form.controls['price'].errors?.['required'] ">
+        Une plante valide comporte un prix
+      </div> 
     </div>
 
     <div class="form-group mb-2">
@@ -52,6 +69,16 @@
         id="quantity"
         formControlName="quantity"
       />
+      <div
+      class="alert alert-danger"
+      *ngIf="form.controls['quantity'].invalid && form.controls['quantity'].touched && form.controls['quantity'].errors?.['required'] ">
+      Champs requis
+    </div> 
+     <div
+      class="alert alert-danger"
+      *ngIf="form.controls['quantity'].invalid && form.controls['quantity'].touched && form.controls['quantity'].errors?.['required'] ">
+      Une plante valide comporte une quantité
+    </div> 
     </div>
 
     <div class="form-group mb-2">
@@ -72,6 +99,7 @@
         id="inStock"
         formControlName="inStock"
       />
+      
     </div>
 
     <div class="btn d-flex justify-content-center mb-5">
@@ -79,6 +107,7 @@
         type="submit"
         class="btn btn-primary ps-5 pe-5"
         style="background-color: #16a14b"
+        [disabled]="form.invalid"
       >
         Valider
       </button>
