@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
 import { Plant } from 'src/app/models/plant';
+import Swal from 'sweetalert2';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
@@ -37,6 +38,21 @@ export class EditPlantComponent implements OnInit {
   public onSubmitUpdatePlant(submittedPlant: Plant): void {
     console.log(submittedPlant);
     this.adminService.updatePlant(submittedPlant).subscribe(() => {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        iconColor: '#6fb290',
+        customClass: {
+          popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: 'success',
+        title: 'Ta plante a bien été mise à jour !',
+      });
       this.router.navigate(['admin']);
     });
   }
